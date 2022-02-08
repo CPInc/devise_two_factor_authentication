@@ -1,0 +1,42 @@
+name: 'CI/CD Pipeline'
+
+on:
+  push:
+    branches:
+    - master
+  pull_request:
+  workflow_dispatch:
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+
+    env:
+      RAILS_ENV: test
+      GEMFILE_RUBY_VERSION: 3.0.3
+
+      # Rails verifies the time zone in DB is the same as the time zone of the Rails app
+      TZ: "Europe/London"
+
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.0.3
+          # runs 'bundle install' and caches installed gems automatically
+          bundler-cache: true
+
+      - name: Run tests
+        run: |
+          bundle exec rake spec
+
