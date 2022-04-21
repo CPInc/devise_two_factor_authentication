@@ -1,7 +1,7 @@
 # Two factor authentication for Devise
 
-[![Build Status](https://github.com/baarkerlounger/two_factor_authentication/actions/workflows/tests.yml/badge.svg?branch=master&event=push)](https://github.com/baarkerlounger/two_factor_authentication/actions/workflows/tests.yml)
-[![Code Climate](https://codeclimate.com/github/Houdini/two_factor_authentication.svg)](https://codeclimate.com/github/Houdini/two_factor_authentication)
+[![Build Status](https://github.com/devise2fa/two_factor_authentication/actions/workflows/tests.yml/badge.svg?branch=master&event=push)](https://github.com/devise2fa/two_factor_authentication/actions/workflows/tests.yml)
+
 
 ## Features
 
@@ -269,9 +269,9 @@ to overwrite/customize user registrations. It should include the lines below, fo
    ```ruby
    class RegistrationsController < Devise::RegistrationsController
      before_action :confirm_two_factor_authenticated, except: [:new, :create, :cancel]
-   
+
      protected
-   
+
      def confirm_two_factor_authenticated
        return if is_fully_authenticated?
 
@@ -294,7 +294,7 @@ Make sure you are passing the 2FA secret codes securely and checking for them up
      before_action :require_signed_in!
      before_action :authenticate_user!
      respond_to :html, :json
-     
+
      def account_API
        resp = {}
        begin       
@@ -313,11 +313,11 @@ Make sure you are passing the 2FA secret codes securely and checking for them up
            if(account_params["twoFASecret"] && current_user.totp_enabled? && current_user.authenticate_totp(account_params["twoFASecret"]))
              # user has passed 2FA checks, do cool user account stuff here
              ...
-           else 
+           else
              # user failed 2FA check! No cool user stuff happens!             
               resp[error] = 'You failed 2FA validation!'
            end
-           
+
              ...
            end
          else
@@ -330,7 +330,7 @@ Make sure you are passing the 2FA secret codes securely and checking for them up
        end
        render json: resp.to_json
      end
-   
+
      def account_params
        params.require(:twoFA).permit(:userAccountStuff, :userAcountWidget, :twoFAKey, :twoFASecret)
      end
@@ -355,7 +355,7 @@ to set up TOTP for Google Authenticator for user:
    current_user.otp_secret_key =  current_user.generate_totp_secret
    current_user.save!
    ```
-   
+
 ( encrypted db fields are set upon user model save action,
 rails c access relies on setting env var: OTP_SECRET_ENCRYPTION_KEY )
 
@@ -367,11 +367,11 @@ before saving the user model:
    ```
 
 additional note:
- 
+
    ```
    current_user.otp_secret_key
    ```
-   
+
 This returns the OTP secret key in plaintext for the user (if you have set the env var) in the console
 the string used for generating the QR given to the user for their Google Auth is something like:
 
@@ -397,6 +397,3 @@ to set TOTP to DISABLED for a user account:
    current_user.direct_otp? => false
    current_user.totp_enabled? => false
    ```
-   
-
-
