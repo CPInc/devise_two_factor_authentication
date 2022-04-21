@@ -12,7 +12,7 @@ feature "User of two factor authentication" do
       end
 
       it 'does not send an SMS before the user has signed in' do
-        expect(SMSProvider.messages).to be_empty
+        expect(SmsProvider.messages).to be_empty
       end
 
       it 'sends code via SMS after sign in' do
@@ -21,8 +21,8 @@ feature "User of two factor authentication" do
 
         expect(page).to have_content 'Enter the code that was sent to you'
 
-        expect(SMSProvider.messages.size).to eq(1)
-        message = SMSProvider.last_message
+        expect(SmsProvider.messages.size).to eq(1)
+        message = SmsProvider.last_message
         expect(message.to).to eq(user.phone_number)
         expect(message.body).to eq(user.reload.direct_otp)
       end
@@ -33,12 +33,13 @@ feature "User of two factor authentication" do
 
         expect(page).to have_content('You are signed in as Marissa')
 
-        fill_in 'code', with: SMSProvider.last_message.body
+        fill_in 'code', with: SmsProvider.last_message.body
         click_button 'Submit'
 
-        within('.flash.notice') do
-          expect(page).to have_content('Two factor authentication successful.')
-        end
+        expect(page).to have_selector(
+          ".notice",
+          text: "Two factor authentication successful."
+        )
 
         expect(current_path).to eq root_path
       end
@@ -67,7 +68,7 @@ feature "User of two factor authentication" do
 
       expect(page).to_not have_content("Your Personal Dashboard")
 
-      fill_in "code", with: SMSProvider.last_message.body
+      fill_in "code", with: SmsProvider.last_message.body
       click_button "Submit"
 
       expect(page).to have_content("Your Personal Dashboard")
@@ -85,9 +86,7 @@ feature "User of two factor authentication" do
         fill_in "code", with: "incorrect#{rand(100)}"
         click_button "Submit"
 
-        within(".flash.alert") do
-          expect(page).to have_content("Attempt failed")
-        end
+        expect(page).to have_selector(".alert", text: "Attempt failed")
       end
 
       expect(page).to have_content("Access completely denied")
@@ -154,9 +153,9 @@ feature "User of two factor authentication" do
       end
 
       def sms_sign_in
-        SMSProvider.messages.clear()
+        SmsProvider.messages.clear()
         visit user_two_factor_authentication_path
-        fill_in 'code', with: SMSProvider.last_message.body
+        fill_in 'code', with: SmsProvider.last_message.body
         click_button 'Submit'
       end
 

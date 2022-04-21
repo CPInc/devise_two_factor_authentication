@@ -24,3 +24,4 @@ RSpec.configure do |config|
 end
 
 Dir["#{Dir.pwd}/spec/support/**/*.rb"].each {|f| require f}
+Dir["#{Dir.pwd}/spec/rails_app/lib/*.rb"].each {|f| require f}
