@@ -1,6 +1,8 @@
 # Two factor authentication for Devise
 
-[![Build Status](https://github.com/devise2fa/two_factor_authentication/actions/workflows/tests.yml/badge.svg?branch=master&event=push)](https://github.com/devise2fa/two_factor_authentication/actions/workflows/tests.yml)
+[![Build Status](https://github.com/devise2fa/two_factor_authentication/actions/workflows/tests.yml/badge.svg?branch=master&event=push)](https://github.com/baarkerlounger/two_factor_authentication/actions/workflows/tests.yml)
+
+This is a fork of [Houdini/two_factor_authentication](https://github.com/Houdini/two_factor_authentication) to enable development to continue as that repository no longer seems to be actively developed. With thanks to all contributors.
 
 
 ## Features

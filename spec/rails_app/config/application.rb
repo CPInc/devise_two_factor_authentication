@@ -6,7 +6,7 @@ require "action_mailer/railtie"
 require "sprockets/railtie"
 
 Bundler.require(*Rails.groups)
-require "two_factor_authentication"
+require "devise2fa"
 
 module Dummy
   class Application < Rails::Application
@@ -47,6 +47,8 @@ module Dummy
     # like if you have constraints or database-specific column types
     # config.active_record.schema_format = :sql
 
+    config.active_record.legacy_connection_handling = false
+
     # Enable the asset pipeline
     config.assets.enabled = true
 
@@ -60,4 +62,3 @@ module Dummy
     config.secret_key_base = 'secretvalue'
   end
 end
-

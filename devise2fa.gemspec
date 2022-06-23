@@ -1,14 +1,14 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "two_factor_authentication/version"
+require "devise2fa/version"
 
 Gem::Specification.new do |s|
-  s.name        = "two_factor_authentication"
-  s.version     = TwoFactorAuthentication::VERSION.dup
-  s.authors     = ["Dmitrii Golub"]
-  s.email       = ["dmitrii.golub@gmail.com"]
-  s.homepage    = "https://github.com/Houdini/two_factor_authentication"
-  s.summary     = %q{Two factor authentication plugin for devise}
+  s.name        = "devise2fa"
+  s.version     = Devise2Fa::VERSION.dup
+  s.authors     = ["baarkerlounger"]
+  s.email       = ["baarkerlounger@protonmail.com"]
+  s.homepage    = "https://github.com/devise2fa/devise2fa"
+  s.summary     = %q{Two factor authentication plugin for devise forked from Houdini/two_factor_authentication}
   s.license     = "MIT"
   s.description = <<-EOF
     ### Features ###
@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
     * your own sms logic
   EOF
 
-  s.rubyforge_project = "two_factor_authentication"
+  s.rubyforge_project = "devise2fa"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
