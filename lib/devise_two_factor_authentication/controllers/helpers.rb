@@ -1,4 +1,4 @@
-module Devise2Fa
+module DeviseTwoFactorAuthentication
   module Controllers
     module Helpers
       extend ActiveSupport::Concern
@@ -12,7 +12,7 @@ module Devise2Fa
       def handle_two_factor_authentication
         unless devise_controller?
           Devise.mappings.keys.flatten.any? do |scope|
-            if signed_in?(scope) and warden.session(scope)[Devise2Fa::NEED_AUTHENTICATION]
+            if signed_in?(scope) and warden.session(scope)[DeviseTwoFactorAuthentication::NEED_AUTHENTICATION]
               handle_failed_second_factor(scope)
             end
           end
@@ -47,7 +47,7 @@ module Devise
   module Controllers
     module Helpers
       def is_fully_authenticated?
-        !session["warden.user.user.session"].try(:[], Devise2Fa::NEED_AUTHENTICATION)
+        !session["warden.user.user.session"].try(:[], DeviseTwoFactorAuthentication::NEED_AUTHENTICATION)
       end
     end
   end

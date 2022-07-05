@@ -6,7 +6,7 @@ require "action_mailer/railtie"
 require "sprockets/railtie"
 
 Bundler.require(*Rails.groups)
-require "devise2fa"
+require "devise_two_factor_authentication"
 
 module Dummy
   class Application < Rails::Application

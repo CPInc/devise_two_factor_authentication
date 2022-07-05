@@ -24,6 +24,7 @@ end
 
 group :test, :development do
   gem 'pry'
+  gem 'rubocop'
   gem 'sprockets-rails'
   gem 'sqlite3'
 end

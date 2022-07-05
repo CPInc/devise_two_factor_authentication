@@ -1,4 +1,4 @@
-require 'devise2fa/hooks/two_factor_authenticatable'
+require 'devise_two_factor_authentication/hooks/two_factor_authenticatable'
 require 'rotp'
 require 'encryptor'
 
